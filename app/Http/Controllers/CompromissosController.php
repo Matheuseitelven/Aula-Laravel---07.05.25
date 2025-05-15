@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CompromissoRequest;
 use App\Models\Compromisso;
 use Illuminate\Http\Request;
 
@@ -20,10 +21,19 @@ class CompromissosController extends Controller
         */
     }
 
-    public function salvar(Request $request){
+    public function salvar(CompromissoRequest $request){
+
+        $dados = $request -> validated();
+        /*
+        Validação SEM a Request
+        $dados = $request -> validate([
+            'titulo'=> 'required',
+            'quando'=> 'required',
+        ]);*/
 
 
-        Compromisso::create($request->all());
+
+        Compromisso::create($dados);
         return redirect()->route('compromissos');
     }
 
